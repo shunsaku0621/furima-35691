@@ -2,18 +2,16 @@
 
 ## users テーブル
 
-| Column          | Type   | Options     |
-| --------------- | ------ | ----------- |
-| email           | string | null: false |
-| password        | string | null: false |
-| nickname        | string | null: false |
-| last_name       | text   | null: false |
-| first_name      | text   | null: false |
-| last_name_kana  | text   | null: false |
-| first_name_kana | text   | null: false |
-| birth_year      | integer| null: false |
-| birth_month     | integer| null: false |
-| birth_day       | integer| null: false |
+| Column                    | Type   | Options                   |
+| --------------------------| -------| ------------------------- |
+| email                     | string | null: false, unique: true |
+| encrypted_password        | string | null: false               |
+| nickname                  | string | null: false               |
+| last_name                 | string | null: false               |
+| first_name                | string | null: false               |
+| last_name_kana            | string | null: false               |
+| first_name_kana           | string | null: false               |
+| birth                     | date   | null: false               |
 
 ### Association
 
@@ -24,19 +22,17 @@
 
 ## items テーブル
 
-| Column      | Type        | Options                         |
-| ----------- | ----------- | ------------------------------- |
-| title       | string      | null: false                     |
-| text        | text        | null: false                     |
-| category    | string      | null: false                     |
-| status      | string      | null: false                     |
-| shipping_fee| string      | null: false                     |
-| prefecture  | string      | null: false                     |
-| delivery    | string      | null: false                     |
-| price       | integer     | null: false                     |
-| tax         | integer     | null: false                     |
-| profit      | integer     | null: false                     |
-| user        | references  | null: false, foreign_key: true  |
+| Column         | Type         | Options                         |
+| ---------------| ------------ | ------------------------------- |
+| title          | string       | null: false                     |
+| text           | text         | null: false                     |
+| category_id    | integer      | null: false                     |
+| status_id      | integer      | null: false                     |
+| shipping_fee_id| integer      | null: false                     |
+| prefecture_id  | integer      | null: false                     |
+| delivery_id    | integer      | null: false                     |
+| price          | integer      | null: false                     |
+| user           | references   | null: false, foreign_key: true  |
 
 
 ### Association
@@ -49,11 +45,6 @@
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
-| pay       | integer    | null: false                    |  
-| number    | integer    | null: false                    |  
-| month     | integer    | null: false                    |  
-| year      | integer    | null: false                    |  
-| cvc       | integer    | null: false                    |  
 | user      | references | null: false, foreign_key: true |
 | item      | references | null: false, foreign_key: true |
 
@@ -69,19 +60,20 @@
 
 ## destinations テーブル
 
-| Column    | Type       | Options                        |
-| --------- | ---------- | ------------------------------ |
-| post_num  | integer    | null: false                    |  
-| prefecture| string     | null: false                    |  
-| city      | string     | null: false                    |  
-| address   | string     | null: false                    |  
-| building  | string     | null: false                    |  
-| phone_num | integer    | null: false, foreign_key: true |
-| order     | references | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| post_num      | string     | null: false                    |  
+| prefecture_id | string     | null: false                    |  
+| city          | string     | null: false                    |  
+| address       | string     | null: false                    |  
+| building      | string     |                                |  
+| phone_num     | string     | null: false                    |
+| order         | references | null: false, foreign_key: true |
 
 
 
 ### Association
 
-- belongs_to :order
+- has_one :order
+
 
