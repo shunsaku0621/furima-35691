@@ -19,7 +19,7 @@
                 <mxCell id="6" value="destinations" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
                     <mxGeometry x="465" y="330" width="205" height="160" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="post_num  (string型 NOT NULL)&#10;prefecture_id (string型　NOT NULL)&#10;city (string型　NOT NULL)&#10;address (string型　NOT NULL)&#10;building (string型)&#10;phone_num  (string型 NOT NULL)&#10;order_id(references型)&#10;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="6" vertex="1">
+                <mxCell id="7" value="post_num  (string型 NOT NULL)&#10;prefecture_id (integer型　NOT NULL)&#10;city (string型　NOT NULL)&#10;address (string型　NOT NULL)&#10;building (string型)&#10;phone_num  (string型 NOT NULL)&#10;order_id(references型)&#10;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="6" vertex="1">
                     <mxGeometry y="30" width="205" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="8" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=13;html=1;endArrow=ERoneToMany;startArrow=ERzeroToOne;exitX=1.002;exitY=0.902;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.01;entryY=0.429;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="10" target="5" edge="1">
