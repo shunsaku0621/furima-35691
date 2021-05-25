@@ -75,7 +75,6 @@ RSpec.describe User, type: :model do
       it 'first_nameが空では登録できない' do
         @user.first_name = ''
         @user.valid?
-        # binding.pry
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
       it 'last_name_kanaが空では登録できない' do
@@ -92,6 +91,12 @@ RSpec.describe User, type: :model do
         @user.birth = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Birth can't be blank")
+      end
+      it 'emailは、@がないと登録できない' do
+        @user.email = 'hogehoge.com'
+        @user.valid?
+        # binding.pry
+        expect(@user.errors.full_messages).to include("Email is invalid")
       end
     end
   end
