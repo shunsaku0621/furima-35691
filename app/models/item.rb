@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :title
     validates :text
-    validates :category_id
+    # validates :category_id
     validates :status_id
     validates :shipping_fee_id
     validates :prefecture_id
@@ -10,7 +10,16 @@ class Item < ApplicationRecord
     validates :price
     validates :image
   end
+  #ActiveHashのバリデーション
+  validates :category_id, numericality: {other_than: 1}
 
+  
+#ActiveHashのアソシエーション
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+
+
+#通常のアソシエーション
   belongs_to :user
   has_one_attached :image
 end
