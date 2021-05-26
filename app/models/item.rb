@@ -8,6 +8,7 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :delivery_id
     validates :price
+    validates :image
   end
 
   belongs_to :user
