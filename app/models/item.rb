@@ -7,7 +7,7 @@ class Item < ApplicationRecord
     # validates :shipping_fee_id
     # validates :prefecture_id
     # validates :delivery_id
-    validates :price
+    validates :price, format: { with: /\A[0-9]+\z/}, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
     validates :image
   end
   #ActiveHashのバリデーション
