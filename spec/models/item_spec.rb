@@ -15,7 +15,7 @@ RSpec.describe Item, type: :model do
         expect(@item).to be_valid
       end
       it 'priceが300円以上9999999円以下であれば登録できる' do
-        @item.price = '400'
+        @item.price = 400
         expect(@item).to be_valid
       end
     end
@@ -61,12 +61,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it 'priceが300円以下では登録できない' do
-        @item.price = '100'
+        @item.price = 100
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
       it 'priceが9999999円以上では登録できない' do
-        @item.price = '100000000'
+        @item.price = 100000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end
@@ -75,10 +75,50 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
+      it 'priceが全角文字では登録できないこと' do
+        @item.price = 'ｋｋｋｋｋｋ'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'priceが半角英数混合では登録できないこと' do
+        @item.price = 'hm2haml'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'priceが半角英語では登録できないこと' do
+        @item.price = 'hamasato'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
       it 'userが紐付いていないと保存できないこと' do
         @item.user = nil
         @item.valid?
         expect(@item.errors.full_messages).to include('User must exist')
+      end
+      it 'category_idのactive hashのカラムが1では登録できないこと' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
+      it 'status_idのactive hashのカラムが1では登録できないこと' do
+        @item.status_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Status must be other than 1")
+      end
+      it 'shipping_fee_idのactive hashのカラムが1では登録できないこと' do
+        @item.shipping_fee_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping fee must be other than 1")
+      end
+      it 'prefecture_idのactive hashのカラムが1では登録できないこと' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      end
+      it 'delivery_idのactive hashのカラムが1では登録できないこと' do
+        @item.delivery_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery must be other than 1")
       end
     end
   end
