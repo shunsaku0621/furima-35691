@@ -3,9 +3,31 @@ class OrdersController < ApplicationController
     @order = Item.find(params[:item_id])
   end
 
-  def new
+  def create
+    @order = Order.new(order_params)
+    if @order.valid?
+      pay_item
+      @order.save
+      return redirect_to root_path
+    else
+      render 'index'
+    end
   end
 
-  def create
+
+  private
+
+  def order_params
+    params.require(:order).permit(:token)
   end
+
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
+    Payjp::Charge.create(
+      card: order_params[:token],    # カードトークン
+      currency: 'jpy'                 # 通貨の種類（日本円）
+    )
+  end
+
 end

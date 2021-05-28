@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  attr_accessor :token
+
   #アソシエーション
   belongs_to :user
   belongs_to :item
@@ -6,10 +8,11 @@ class Order < ApplicationRecord
 
   #バリデーション
   with_options presence: true do
-    validates :post_num
-    validates :city
-    validates :address
-    validates :phone_num
+    validates :token
+    # validates :post_num
+    # validates :city
+    # validates :address
+    # validates :phone_num
   end
 
   #ActiveHashのバリデーション
