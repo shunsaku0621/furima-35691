@@ -31,8 +31,9 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+    <%= form_with url: item_orders_path, id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
     <%# カード情報の入力 %>
+  
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
         クレジットカード情報入力
@@ -43,6 +44,7 @@
           <span class="indispensable">必須</span>
         </div>
         <%= f.text_field "order[number]", class:"input-default", id:"card-number", placeholder:"カード番号(半角英数字)", maxlength:"16" %>
+      
         <div class='available-card'>
           <%= image_tag 'card-visa.gif', class: 'card-logo'%>
           <%= image_tag 'card-mastercard.gif', class: 'card-logo'%>
@@ -69,7 +71,7 @@
         </div>
         <%= f.text_field "order[cvc]",class:"input-default", id:"card-cvc", placeholder:"カード背面4桁もしくは3桁の番号", maxlength:"4" %>
       </div>
-    </div>
+    </div> 
     <%# /カード情報の入力 %>
     
     <%# 配送先の入力 %>
