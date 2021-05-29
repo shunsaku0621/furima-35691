@@ -13,6 +13,7 @@ class OrderDestination
     validates :phone_num, format: {with: /\A\d{11}\z/}
     validates :user_id 
     validates :item_id 
+    validates :token 
   end
 
 

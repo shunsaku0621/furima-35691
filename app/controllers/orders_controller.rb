@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, except: :index
+  
   def index
     @order = Item.find(params[:item_id])
   end
@@ -12,7 +14,7 @@ class OrdersController < ApplicationController
       @order_destination.save
       return redirect_to root_path
     else 
-      render 'index'
+      redirect_to item_orders_path
     end
       
   end
