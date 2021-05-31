@@ -31,7 +31,7 @@ RSpec.describe OrderDestination, type: :model do
         expect(@order_destination.errors.full_messages).to include("Post num is invalid")
       end
       it 'prefectureを選択していないと保存できないこと' do
-        @order_destination.prefecture_id = '1'
+        @order_destination.prefecture_id = 1
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Prefecture must be other than 1")
       end
