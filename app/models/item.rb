@@ -26,4 +26,5 @@ class Item < ApplicationRecord
 #通常のアソシエーション
   belongs_to :user
   has_one_attached :image
+  has_one :order
 end
