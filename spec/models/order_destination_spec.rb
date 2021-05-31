@@ -4,7 +4,9 @@ RSpec.describe OrderDestination, type: :model do
   describe '購入情報の保存' do
     before do
       user = FactoryBot.create(:user)
-      @order_destination = FactoryBot.build(:order_destination, user_id: user.id)
+      item = FactoryBot.create(:item)
+      sleep 0.1
+      @order_destination = FactoryBot.build(:order_destination, user_id: user.id, item_id: item.id)
     end
 
     context '内容に問題ない場合' do
@@ -29,9 +31,9 @@ RSpec.describe OrderDestination, type: :model do
         expect(@order_destination.errors.full_messages).to include("Post num is invalid")
       end
       it 'prefectureを選択していないと保存できないこと' do
-        @order_destination.prefecture_id = ''
+        @order_destination.prefecture_id = '1'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Prefecture is not a number")
+        expect(@order_destination.errors.full_messages).to include("Prefecture must be other than 1")
       end
       it 'cityが空だと保存できないこと' do
         @order_destination.city = ''
@@ -48,6 +50,21 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone num can't be blank")
       end
+      it '9桁以下では登録できないこと' do
+        @order_destination.phone_num = '000000000'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone num is invalid")
+      end
+      it '12桁以上では登録できないこと' do
+        @order_destination.phone_num = '111111111111'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone num is invalid")
+      end
+      it '英数混合では登録できないこと' do
+        @order_destination.phone_num = 'ski234567k8'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone num is invalid")
+      end
       it 'phone_numが正しい形式でないと保存できないこと' do
         @order_destination.phone_num = '080-0000-0000'
         @order_destination.valid?
@@ -57,6 +74,16 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.token = ''
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空だと保存できないこと' do
+        @order_destination.user_id = ''
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと保存できないこと' do
+        @order_destination.item_id = ''
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
