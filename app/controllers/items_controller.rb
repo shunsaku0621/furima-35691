@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :not_edit_delite, only: [:edit, :update, :destroy]
+  before_action :sold_not_edit, only: [:edit]
+
 
   def index
     @items = Item.all.order("created_at DESC")
@@ -52,6 +54,12 @@ class ItemsController < ApplicationController
 
   def not_edit_delite
     unless current_user.id == @item.user_id
+      redirect_to root_path
+    end
+  end
+
+  def sold_not_edit
+    unless @item.order.blank?
       redirect_to root_path
     end
   end
