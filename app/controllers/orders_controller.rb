@@ -1,16 +1,15 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :not_order, only: [:index, :create]
   before_action :sold_not_order, only: [:index, :create]
+  
 
   def index
-    @order = Item.find(params[:item_id])
     @order_destination = OrderDestination.new
   end
   
 
   def create
-    # binding.pry
     @order_destination = OrderDestination.new(order_params)
     if @order_destination.valid?
       pay_item
@@ -50,11 +49,13 @@ class OrdersController < ApplicationController
     end
   end
 
-
+  
   def sold_not_order
-    unless @order.blank?
+    unless @order.order.blank?
       redirect_to root_path
     end
   end
+
+  
 
 end

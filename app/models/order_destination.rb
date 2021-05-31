@@ -1,7 +1,7 @@
 
 class OrderDestination
   include ActiveModel::Model
-  attr_accessor :post_num, :prefecture_id, :city, :address, :building, :phone_num, :user_id, :item_id, :token, :order_id
+  attr_accessor :post_num, :prefecture_id, :city, :address, :building, :phone_num, :user_id, :item_id, :token
   
 
 
@@ -10,7 +10,7 @@ class OrderDestination
     validates :post_num, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
     validates :city
     validates :address
-    validates :phone_num, format: {with: /\A\d{11}\z/}
+    validates :phone_num, format: {with: /\A\d{10,11}\z/}
     validates :user_id 
     validates :item_id 
     validates :token 
