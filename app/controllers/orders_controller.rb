@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :not_order, only: [:index, :create]
+  before_action :sold_not_order, only: [:index, :create]
 
   def index
     @order = Item.find(params[:item_id])
@@ -45,6 +46,13 @@ class OrdersController < ApplicationController
   def not_order
     @order = Item.find(params[:item_id])
     if current_user.id == @order.user_id
+      redirect_to root_path
+    end
+  end
+
+
+  def sold_not_order
+    unless @order.blank?
       redirect_to root_path
     end
   end
