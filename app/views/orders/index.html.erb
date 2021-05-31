@@ -7,14 +7,14 @@
     </h1>
     <%# 購入内容の表示 %>
     <div class='buy-item-info'>
-      <%= image_tag @order.image, class: 'buy-item-img' %>
+      <%= image_tag Item.find(params[:item_id]).image, class: 'buy-item-img' %>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
-          <%= @order.title %>
+          <%= Item.find(params[:item_id]).title %>
         </h2>
         <div class='buy-item-price'>
-          <p class='item-price-text'>¥<%= @order.price %></p>
-          <p class='item-price-sub-text'><%= @order.shipping_fee.name %></p>
+          <p class='item-price-text'>¥<%= Item.find(params[:item_id]).price %></p>
+          <p class='item-price-sub-text'><%= Item.find(params[:item_id]).shipping_fee.name %></p>
         </div>
       </div>
     </div>
@@ -26,14 +26,15 @@
         支払金額
       </h1>
       <p class='item-payment-price'>
-        ¥<%= @order.price %>
+        ¥<%= Item.find(params[:item_id]).price %>
       </p>
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with model: @order_destination, id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
-
-    
+    <%= form_with model: @order_destination, url: item_orders_path, id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
+      <%= render 'shared/error_messages', model: @order_destination %>
+       
+       
     <%# カード情報の入力 %>
     
     <div class='credit-card-form'>
@@ -128,6 +129,7 @@
     <div class='buy-btn'>
       <%= f.submit "購入" ,class:"buy-red-btn" %>
     </div>
+    
     <% end %>
   </div>
 </div>
